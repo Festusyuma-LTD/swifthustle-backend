@@ -15,8 +15,8 @@ class CreateGameWinnersTable extends Migration
     {
         Schema::create('game_winners', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('game_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('game_id');
             $table->double('amount');
             $table->boolean('paid')->default(false);
             $table->timestamps();
