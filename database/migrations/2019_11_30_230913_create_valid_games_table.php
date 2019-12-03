@@ -17,6 +17,7 @@ class CreateValidGamesTable extends Migration
             $table->bigIncrements('id');
             $table->decimal('amount');
             $table->integer('odd');
+            $table->boolean('active');
             $table->timestamps();
         });
     }
