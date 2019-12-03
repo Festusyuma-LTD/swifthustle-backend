@@ -42,7 +42,7 @@ class RegisterController extends Controller
      */
     public function __construct(UserService $userService)
     {
-        $this->middleware('guest');
+       // $this->middleware(['guest', 'auth']);
         $this->userService = $userService;
     }
 

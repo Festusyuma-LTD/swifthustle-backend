@@ -25,7 +25,6 @@ class UserService {
         $validateDate = Validator::make($request->all(), [
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'role' => 'required',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'phone_no' => 'required|string|max:20|unique:users'
@@ -34,11 +33,11 @@ class UserService {
         if($validateDate->fails()) {
             return response()->json(['status' => 430, 'message' => 'operation failed', 'data' => $validateDate->messages()->all()]);
         } else {
-            $user =$this->userRepository->add($request);
+            $user = $this->userRepository->add($request);
             if($user) {
                 return response()->json(['status' => 200, 'message' => 'operation successful', 'data' => $user]);
             } else {
-                return response()->json(['status' => 200, 'message' => 'operation failed']);
+                return response()->json(['status' => 400, 'message' => 'operation failed']);
             }
         }
 

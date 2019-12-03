@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -26,7 +27,7 @@ class UserRepository {
             'email' => $request->get('email'),
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
-            'role' => 3,
+            'role' => Auth::user() && Auth::user()->role === "1" ? 2: 3,
             'phone_no' => $request->get('phone_no'),
             'password' => Hash::make($request->get('password')),
         ]);

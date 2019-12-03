@@ -21,6 +21,8 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['auth:api','isSuperAdm
    Route::get('my-data', function(){
       echo "super admin";
    });
+
+    Route::post('add-admin', 'Auth\RegisterController@createAdmin');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:api','isAdmin']], function() {
@@ -39,4 +41,4 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
 
 Route::post('/user/register', 'Auth\RegisterController@create');
 Route::post('/user/login', 'Auth\LoginController@login');
-Route::post('/admin/register', 'Auth\RegisterController@createAdmin');
+

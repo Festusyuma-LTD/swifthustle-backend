@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee375825-529f-49c5-ab3c-f3754b9dc8cf" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/swiftHustle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/swiftHustle.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repository/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repository/Index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Service/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Service/Index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Service/UserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Service/UserService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Service/UserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Service/UserService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -338,7 +329,8 @@
       <workItem from="1574843910185" duration="5323000" />
       <workItem from="1574893659637" duration="192000" />
       <workItem from="1574444441806" duration="238000" />
-      <workItem from="1575277113064" duration="13182000" />
+      <workItem from="1575277113064" duration="13614000" />
+      <workItem from="1575322556854" duration="1522000" />
     </task>
     <servers />
   </component>
@@ -350,7 +342,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
