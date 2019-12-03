@@ -21,7 +21,6 @@ class UserRepository {
     }
 
     public function add(Request $request) {
-        //return $this->user->create($data);
         return User::create([
             'username' => $request->get('username'),
             'email' => $request->get('email'),

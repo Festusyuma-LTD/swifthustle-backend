@@ -41,4 +41,5 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
 
 Route::post('/user/register', 'Auth\RegisterController@create');
 Route::post('/user/login', 'Auth\LoginController@login');
+Route::post('/user/reset-password', 'Auth\ResetPasswordController@resetPassword');
 
