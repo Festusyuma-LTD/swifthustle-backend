@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Service\UserService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    protected $userService;
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -32,8 +35,13 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
         $this->middleware('guest')->except('logout');
+        $this->userService = $userService;
+    }
+
+    public function login(Request $request){
+        return $this->userService->login($request);
     }
 }
