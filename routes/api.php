@@ -43,3 +43,4 @@ Route::post('/user/register', 'Auth\RegisterController@create');
 Route::post('/user/login', 'Auth\LoginController@login');
 Route::post('/user/reset-password', 'Auth\ResetPasswordController@resetPassword');
 
+Route::get('/cron/game/request', 'Game\HandleRequest@index');
