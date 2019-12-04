@@ -22,13 +22,14 @@ Route::group(['prefix' => 'super-admin', 'middleware' => ['auth:api','isSuperAdm
       echo "super admin";
    });
 
-    Route::post('add-admin', 'Auth\RegisterController@createAdmin');
+    Route::post('add-admin', 'Auth\RegisterController@create');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:api','isAdmin']], function() {
     Route::get('my-data', function(){
         echo "admin";
     });
+    Route::resource('valid-games', 'ValidGameController');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], function() {

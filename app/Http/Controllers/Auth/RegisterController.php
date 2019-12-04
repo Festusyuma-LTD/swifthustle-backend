@@ -69,11 +69,20 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {
-         return $this->userService->make($request);
+         $user = $this->userService->make($request);
+
+        if (is_array($user)) {
+            return response()->json(['status' => 400, 'message' => 'operation failed', 'data' => $user]);
+
+        } else {
+            if($user) {
+                return response()->json(['status' => 200, 'message' => 'operation successful', 'data' => $user]);
+            } else {
+                return response()->json(['status' => 400, 'message' => 'operation failed']);
+
+            }
+        }
     }
 
-    protected function createAdmin(Request $request)
-    {
-        return $this->userService->make($request);
-    }
+
 }

@@ -3,11 +3,15 @@
 namespace App\Repository;
 
 use App\Http\Requests\UserRequest;
+use App\Mail\ResetUserPassword;
+use App\ResetPassword;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 class UserRepository {
@@ -48,6 +52,10 @@ class UserRepository {
                 $tokenResult->token->expires_at
             )->toDateTimeString()
         ]);
+    }
+
+    public function resetPassword(Request $request) {
+         return User::where('email', $request->get('email'))->first();
     }
 
 }

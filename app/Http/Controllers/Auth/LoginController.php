@@ -42,6 +42,20 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
-        return $this->userService->login($request);
+        $user = $this->userService->login($request);
+        if (is_array($user)) {
+              return response()->json(['status' => 430, 'message' => 'operation failed', 'data' => $user]);
+        } else {
+            if ($user === 'UnAuthorized') {
+                return response()->json([
+                    'status' => 401,
+                    'message' => 'Unauthorized'
+                ], 401);
+            } else {
+                if ($user) {
+                    return response()->json(['status' => 200, 'message' => 'operation successful', 'data' => $user]);
+                }
+            }
+        }
     }
 }

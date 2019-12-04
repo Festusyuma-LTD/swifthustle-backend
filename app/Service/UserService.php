@@ -2,12 +2,16 @@
 
 namespace App\Service;
 use App\Http\Requests\UserRequest;
+use App\Mail\ResetUserPassword;
 use App\Repository\UserRepository;
+use App\ResetPassword;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\Input;
 
 
@@ -27,17 +31,17 @@ class UserService {
             'email' => 'required|string|email|max:255|unique:users',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'phone_no' => 'required|string|max:20|unique:users'
+            'phone_no' => 'required|string|max:20|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6|same:password'
         ]);
 
         if($validateDate->fails()) {
-            return response()->json(['status' => 430, 'message' => 'operation failed', 'data' => $validateDate->messages()->all()]);
+            return $validateDate->messages()->all();
         } else {
             $user = $this->userRepository->add($request);
             if($user) {
-                return response()->json(['status' => 200, 'message' => 'operation successful', 'data' => $user]);
-            } else {
-                return response()->json(['status' => 400, 'message' => 'operation failed']);
+                return $user;
             }
         }
 
@@ -50,20 +54,32 @@ class UserService {
         ]);
 
         if($validateData->fails()) {
-            return response()->json(['status' => 430, 'message' => 'operation failed', 'data' => $validateData->messages()->all()]);
+            return $validateData->messages()->all();
         } else {
             if (!Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
-                return response()->json([
-                    'status' => 401,
-                    'message' => 'Unauthorized'
-                ], 401);
+                return 'UnAuthorized';
             } else {
                 $user = $this->userRepository->authenticateUser($request);
                 if ($user) {
-                    return response()->json(['status' => 200, 'message' => 'operation successful', 'data' => $user]);
+                    return $user;
                 }
             }
         }
+    }
+
+    public function forgetPassword(Request $request)
+    {
+        $user = $this->userRepository->resetPassword($request);
+
+        if ($user) {
+            $resetPassword = new ResetPassword();
+            $resetPassword->remember_token = $request->remember_token = Str::random(40);
+            $user->resetPassword()->save($resetPassword);
+
+             Mail::to($request->get('email'))->send(new ResetUserPassword($request));
+             return $user;
+        }
+
     }
 
 }
