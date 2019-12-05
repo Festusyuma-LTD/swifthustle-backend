@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helper\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Service\UserService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -42,6 +43,17 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
-        return $this->userService->login($request);
+        $user = $this->userService->login($request);
+        if (is_array($user)) {
+            return ResponseHelper::responseDisplay('400', 'operation fail', $user);
+        } else {
+            if ($user === 'UnAuthorized') {
+                return ResponseHelper::responseDisplay('401', 'Unauthorized');
+            } else {
+                if ($user) {
+                    return ResponseHelper::responseDisplay(200, 'operation successful', $user);
+                }
+            }
+        }
     }
 }

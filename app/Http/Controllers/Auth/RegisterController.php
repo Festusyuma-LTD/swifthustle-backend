@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helper\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Http\Requests\UserRequest;
@@ -69,11 +70,18 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {
-         return $this->userService->make($request);
+         $user = $this->userService->make($request);
+
+        if (is_array($user)) {
+            return ResponseHelper::responseDisplay(400, 'operation fail', $user);
+        } else {
+            if($user) {
+                return ResponseHelper::responseDisplay(200, 'operation successful', $user);
+            } else {
+                return ResponseHelper::responseDisplay(400, 'operation fail');
+            }
+        }
     }
 
-    protected function createAdmin(Request $request)
-    {
-        return $this->userService->make($request);
-    }
+
 }

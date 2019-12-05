@@ -38,6 +38,10 @@ class AddRelationships extends Migration
         Schema::table('transactions', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
+
+        Schema::table('reset_passwords', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+        });
     }
 
     /**

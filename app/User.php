@@ -39,4 +39,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function resetPassword(){
+        return $this->hasOne('App\ResetPassword');
+    }
+
+    public function validGame(){
+        return $this->hasMany('App\ValidGame');
+    }
+
 }

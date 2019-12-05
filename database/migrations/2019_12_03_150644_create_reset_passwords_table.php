@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateValidGamesTable extends Migration
+class CreateResetPasswordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateValidGamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('valid_games', function (Blueprint $table) {
+        Schema::create('reset_passwords', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('amount');
-            $table->integer('odd');
-            $table->boolean('active');
+            $table->rememberToken();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +28,6 @@ class CreateValidGamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('valid_games');
+        Schema::dropIfExists('reset_passwords');
     }
 }
