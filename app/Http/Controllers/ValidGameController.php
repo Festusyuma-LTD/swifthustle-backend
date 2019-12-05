@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\ResponseHelper;
 use App\Service\ValidGameService;
 use Illuminate\Http\Request;
 
@@ -26,16 +27,6 @@ class ValidGameController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -46,7 +37,29 @@ class ValidGameController extends Controller
     public function store(Request $request)
     {
         //
-        return $this->validGameService->makeGame($request);
+        $game = $this->validGameService->makeGame($request);
+        if(is_array($game)) {
+            return ResponseHelper::responseDisplay(400, 'operation fail', $game);
+        }
+        if ($game) {
+            return ResponseHelper::responseDisplay(200, 'operation successful', $game);
+        } else {
+            return ResponseHelper::responseDisplay(400, 'operation fail');
+        }
+
+    }
+
+    public function isGameActive(Request $request)
+    {
+        $game = $this->validGameService->isGameValid($request);
+        if(is_array($game)) {
+            return ResponseHelper::responseDisplay(400, 'operation fail', $game);
+        }
+        if ($game) {
+            return ResponseHelper::responseDisplay(200, 'operation successful', $game);
+        } else {
+            return ResponseHelper::responseDisplay(400, 'operation fail');
+        }
     }
 
     /**

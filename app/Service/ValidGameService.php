@@ -19,18 +19,31 @@ class ValidGameService {
 
         $validGame = Validator::make($request->all(), [
            'amount' => 'required',
-            'odd' => 'required',
-            'active' => 'required'
+            'odd' => 'required'
         ]);
 
         if($validGame->fails()) {
-            return response()->json(['status' => 430, 'message' => 'operation failed', 'data' => $validGame->messages()->all()]);
+            return $validGame->messages()->all();
         } else {
             $game = $this->validGameRepository->add($request);
             if ($game) {
-                return response()->json(['status' => 200, 'message' => 'operation successful', 'data' => $game]);
-            } else {
-                return response()->json(['status' => 400, 'message' => 'operation failed']);
+                return $game;
+            }
+        }
+    }
+
+    public function isGameValid(Request $request) {
+        $validGame = Validator::make($request->all(), [
+            'id' => 'required',
+            'active' => 'required|boolean'
+        ]);
+
+        if ($validGame->fails()) {
+            return $validGame->messages()->all();
+        } else {
+            $game = $this->validGameRepository->makeGameActiveOrInactive($request);
+            if ($game) {
+                return $game;
             }
         }
     }

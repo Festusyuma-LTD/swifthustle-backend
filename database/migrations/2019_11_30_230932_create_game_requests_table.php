@@ -17,7 +17,7 @@ class CreateGameRequestsTable extends Migration
             $table->bigIncrements('id');
             $table->decimal('amount');
             $table->integer('odd');
-            $table->integer('position');
+            $table->integer('position')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('game_id')->nullable();
             $table->timestamps();
