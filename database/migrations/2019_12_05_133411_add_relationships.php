@@ -13,29 +13,29 @@ class AddRelationships extends Migration
      */
     public function up()
     {
-        Schema::create('games', function (Blueprint $table) {
+        Schema::table('games', function (Blueprint $table) {
             $table->foreign('winner_id')->references('id')->on('game_winners');
         });
 
-        Schema::create('game_requests', function (Blueprint $table) {
+        Schema::table('game_requests', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('game_id')->references('id')->on('games');
         });
 
-        Schema::create('game_winners', function (Blueprint $table) {
+        Schema::table('game_winners', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('game_id')->references('id')->on('games');
         });
 
-        Schema::create('wallets', function (Blueprint $table) {
+        Schema::table('wallets', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
 
-        Schema::create('withdrawals', function (Blueprint $table) {
+        Schema::table('withdrawals', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
 
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::table('transactions', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
