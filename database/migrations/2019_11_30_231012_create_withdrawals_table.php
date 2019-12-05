@@ -23,8 +23,6 @@ class CreateWithdrawalsTable extends Migration
             $table->boolean('paid')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

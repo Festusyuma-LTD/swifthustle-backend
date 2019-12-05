@@ -21,8 +21,6 @@ class CreateGamesTable extends Migration
             $table->dateTime('time_played')->nullable();
             $table->unsignedBigInteger('winner_id')->nullable();
             $table->timestamps();
-
-            $table->foreign('winner_id')->references('id')->on('game_winners');
         });
     }
 

@@ -20,9 +20,6 @@ class CreateGameWinnersTable extends Migration
             $table->double('amount');
             $table->boolean('paid')->default(false);
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('game_id')->references('id')->on('games');
         });
     }
 
