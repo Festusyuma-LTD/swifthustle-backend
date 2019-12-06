@@ -30,7 +30,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
     Route::get('my-data', function(){
         echo "user";
     });
-    Route::post('join-game', 'GameRequestController@joinGame');
+    Route::post('join-game', 'User\GameController@joinGame');
 });
 
 
@@ -38,5 +38,3 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
 Route::post('/user/register', 'Auth\RegisterController@create');
 Route::post('/user/login', 'Auth\LoginController@login');
 Route::post('/user/reset-password', 'Auth\ResetPasswordController@resetPassword');
-
-Route::get('/cron/game/request', 'Game\HandleRequest@index');

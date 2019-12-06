@@ -19,7 +19,7 @@ class Game extends Model{
         return $this->hasOne('App\GameWinner');
     }
 
-    public function requests() {
+    public function players() {
         return $this->hasMany('App\GameRequest');
     }
 }

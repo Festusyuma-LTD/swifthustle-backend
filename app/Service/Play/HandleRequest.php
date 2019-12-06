@@ -1,5 +1,5 @@
 <?php
-namespace App\Service\Game;
+namespace App\Service\Play;
 
 set_time_limit(100);
 

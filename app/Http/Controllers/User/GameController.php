@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Helper\ResponseHelper;
-use App\Service\GameRequestService;
+use App\Http\Controllers\Controller;
+use App\Service\Game\GameRequestService;
 use Illuminate\Http\Request;
 
-class GameRequestController extends Controller
-{
-    //
-    protected $gameRequestService;
+class GameController extends Controller{
 
+    private $gameRequestService;
 
-    public function __construct(GameRequestService $gameRequestService)
-    {
+    public function __construct(GameRequestService $gameRequestService){
         $this->middleware(['auth:api', 'isUser']);
         $this->gameRequestService = $gameRequestService;
     }
-
 
     public function joinGame(Request $request) {
         $game = $this->gameRequestService->joinActiveGame($request);
