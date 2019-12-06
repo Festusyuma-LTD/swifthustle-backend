@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use phpseclib\Math\BigInteger;
 
@@ -10,6 +11,7 @@ use phpseclib\Math\BigInteger;
  * @property  int odd
  * @property  double amount
  * @property  BigInteger id
+ * @property  DateTime|null play_time
  */
 
 
