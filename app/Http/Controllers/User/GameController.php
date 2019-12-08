@@ -18,15 +18,11 @@ class GameController extends Controller{
 
     public function joinGame(Request $request) {
         $game = $this->gameRequestService->joinActiveGame($request);
-        if(is_array($game)) {
-            return ResponseHelper::responseDisplay(400, 'operation fail', $game);
-        }
 
-        if ($game === 'Inactive') {
-            return ResponseHelper::responseDisplay(400, 'Game is not active');
-        } else {
-            return ResponseHelper::responseDisplay(200, 'Operation successful', $game);
-        }
-
+        if(!$game) {
+            return ResponseHelper::forbidden('Operation forbidden', $game);
+        } else if (is_array($game)) {
+            return ResponseHelper::responseDisplay(400, 'Operation fail', $game);
+        }else return ResponseHelper::success('Operation successful', $game);
     }
 }

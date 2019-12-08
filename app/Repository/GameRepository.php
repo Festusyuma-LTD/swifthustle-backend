@@ -3,16 +3,16 @@ namespace App\Repository;
 
 
 use App\Game;
-use App\GameRequest;
+use App\ValidGame;
 
 class GameRepository{
 
-    public function getPendingRequest(){
-        return GameRequest::where('game_id', null)->get();
+    public function getValidGames() {
+        return ValidGame::all();
     }
 
-    public function getLimitedPendingRequest($limit){
-        return GameRequest::where('game_id', null)->take($limit)->get();
+    public function getValidGameById($id) {
+        return ValidGame::find($id);
     }
 
     public function getOpenGames(){

@@ -6,13 +6,16 @@ set_time_limit(100);
 use App\Game;
 use App\GameRequest;
 use App\Repository\GameRepository;
+use App\Repository\GameRequestRepository;
 
 class HandleRequest{
 
     private $gameRepository;
+    private $gameRequestRepository;
 
     public function __construct(){
         $this->gameRepository = new GameRepository();
+        $this->gameRequestRepository = new GameRequestRepository();
     }
 
     public function __invoke(){
@@ -20,7 +23,7 @@ class HandleRequest{
     }
 
     public function handleRequest() {
-        $pendingRequest = $this->gameRepository->getLimitedPendingRequest(20000);
+        $pendingRequest = $this->gameRequestRepository->getLimitedPendingRequest(20000);
         $games = $this->gameRepository->getOpenGames();
 
         foreach ($pendingRequest as $request) {
