@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helper\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Http\Requests\UserRequest;
@@ -72,14 +73,12 @@ class RegisterController extends Controller
          $user = $this->userService->make($request);
 
         if (is_array($user)) {
-            return response()->json(['status' => 400, 'message' => 'operation failed', 'data' => $user]);
-
+            return ResponseHelper::responseDisplay(400, 'operation fail', $user);
         } else {
             if($user) {
-                return response()->json(['status' => 200, 'message' => 'operation successful', 'data' => $user]);
+                return ResponseHelper::responseDisplay(200, 'operation successful', $user);
             } else {
-                return response()->json(['status' => 400, 'message' => 'operation failed']);
-
+                return ResponseHelper::responseDisplay(400, 'operation fail');
             }
         }
     }

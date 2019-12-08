@@ -18,24 +18,19 @@ use Illuminate\Http\Request;
 });*/
 
 Route::group(['prefix' => 'super-admin', 'middleware' => ['auth:api','isSuperAdmin']], function() {
-   Route::get('my-data', function(){
-      echo "super admin";
-   });
-
     Route::post('add-admin', 'Auth\RegisterController@create');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:api','isAdmin']], function() {
-    Route::get('my-data', function(){
-        echo "admin";
-    });
-    Route::resource('valid-games', 'ValidGameController');
+    Route::post('valid-games', 'ValidGameController@store');
+    Route::post('is-game-active', 'ValidGameController@isGameActive');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], function() {
     Route::get('my-data', function(){
         echo "user";
     });
+    Route::post('join-game', 'User\GameController@joinGame');
 });
 
 
@@ -43,5 +38,3 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
 Route::post('/user/register', 'Auth\RegisterController@create');
 Route::post('/user/login', 'Auth\LoginController@login');
 Route::post('/user/reset-password', 'Auth\ResetPasswordController@resetPassword');
-
-Route::get('/cron/game/request', 'Game\HandleRequest@index');

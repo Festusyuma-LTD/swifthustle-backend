@@ -13,6 +13,10 @@ use phpseclib\Math\BigInteger;
 
 class GameRequest extends Model{
 
+    protected $fillable = [
+        'amount', 'odd', 'position', 'user_id'
+    ];
+
     public function user() {
         return $this->belongsTo('App\User');
     }
@@ -20,4 +24,5 @@ class GameRequest extends Model{
     public function game() {
         return $this->belongsTo('App\Game');
     }
+
 }

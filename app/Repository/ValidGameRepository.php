@@ -25,4 +25,14 @@ class ValidGameRepository {
             'user_id'=> Auth::user()->id
         ]);
     }
+
+    public function makeGameActiveOrInactive(Request $request)
+    {
+        $game = ValidGame::where('id', $request->id)->first();
+        if($game) {
+            $game->active = $request->active;
+            $game->save();
+            return $game;
+        }
+    }
 }
