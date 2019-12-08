@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Service\Play\HandleRequest;
+use App\Service\Play\PlayGame;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -27,8 +28,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->call(new HandleRequest)->everyMinute();
-        //$schedule->job(new HandleRequest)->everyMinute();
+        //$schedule->call(new HandleRequest)->everyMinute();
+        $schedule->call(new PlayGame)->everyMinute();
     }
 
     /**
