@@ -35,7 +35,6 @@ class PlayController extends Controller{
             return ResponseHelper::badRequest($validate->errors()->all());
         }else {
             $selectGame = $this->slotService->selectPosition($request);
-
             if($selectGame) {
 
             }else return ResponseHelper::forbidden('Forbidden');
