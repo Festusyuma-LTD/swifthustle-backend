@@ -34,14 +34,32 @@ class Slot{
 
     public function selectPosition(Request $request) {
 
+        $slot = $request->slot;
+        $gameId = $request->id;
+
         try {
-            $userAvailableSlots = $this->gameRepository->getUserAvailableSlots($request->id);
+            $userAvailableSlots = $this->gameRepository->getUserAvailableSlots($gameId);
             if($userAvailableSlots->count() > 0) {
                 $userSlot = $userAvailableSlots->first();
-                dd($userSlot);
-            }else return false;
+                $availableGameSlots = $this->getAvailableSlots($gameId);
+
+                if(in_array($slot, $availableGameSlots)) {
+                    $userSlot->position = $slot;
+                    return $userSlot->save();
+                }
+            }
+
+            return false;
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    private function getAvailableSlots($id) {
+        $takenSlots = $this->gameRepository->getTakenSlots($id);
+        $game = $this->gameRepository->find($id);
+        $slots = range(1, $game->odd);
+
+        return array_diff($slots, $takenSlots);
     }
 }

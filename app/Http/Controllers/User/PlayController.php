@@ -28,7 +28,7 @@ class PlayController extends Controller{
 
         $validate = Validator::make($request->all(), [
             'id' => 'required|int',
-            'position' => 'required|int',
+            'slot' => 'required|int',
         ]);
 
         if($validate->fails()) {
@@ -36,7 +36,7 @@ class PlayController extends Controller{
         }else {
             $selectGame = $this->slotService->selectPosition($request);
             if($selectGame) {
-
+                return ResponseHelper::success('Success');
             }else return ResponseHelper::forbidden('Forbidden');
         }
     }

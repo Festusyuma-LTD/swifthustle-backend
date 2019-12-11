@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class GameRepository{
 
+    public function find($id) {
+        return Game::find($id);
+    }
+
     public function getValidGames() {
         return ValidGame::all();
     }
@@ -34,5 +38,9 @@ class GameRepository{
 
     public function getUserAvailableSlots($id) {
         return Game::find($id)->players->where('user_id', Auth::id())->where('position', null);
+    }
+
+    public function getTakenSlots($id) {
+        return Game::find($id)->players->where('position', '!=', null)->pluck('position')->toArray();
     }
 }
