@@ -5,15 +5,18 @@ namespace App\Http\Controllers\User;
 use App\Helper\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Service\Play\Slot;
+use App\Service\Play\Winner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class PlayController extends Controller{
 
     private $slotService;
+    private $winnerService;
 
     public function __construct(){
         $this->slotService = new Slot;
+        $this->winnerService = new Winner();
     }
 
     public function userGameSlots($id) {
@@ -41,11 +44,15 @@ class PlayController extends Controller{
         }
     }
 
-    public function getPlayTime() {
+    public function getPlayTime($id) {
 
     }
 
-    public function getWinner() {
+    public function getWinner($id) {
+        $winner = $this->winnerService->getWinner($id);
 
+        if($winner) {
+            return ResponseHelper::success('Success', $winner);
+        }else return ResponseHelper::forbidden('Forbidden');
     }
 }
