@@ -55,7 +55,7 @@ class Slot{
         }
     }
 
-    private function getAvailableSlots($id) {
+    public function getAvailableSlots($id) {
         $takenSlots = $this->gameRepository->getTakenSlots($id);
         $game = $this->gameRepository->find($id);
         $slots = range(1, $game->odd);
