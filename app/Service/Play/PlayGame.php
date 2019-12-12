@@ -32,13 +32,21 @@ class PlayGame{
     private function getWinner(Game $game) {
 
         $slots = $game->odd;
-        $amount = $game->amount;
 
         try {
             $winningSlot = random_int(1, $slots);
             $gameWinner = $this->gameRequestRepository->getGameRequestPosition($game->id, $winningSlot);
-            //$game = $gameWinner->user();
-            dump($gameWinner);
+
+            $winner = new GameWinner;
+            $winner->user_id = $gameWinner;
+            $winner->game_id = $game->id;
+            $winner->position = $winningSlot;
+            $winner->amount = ($game->amount * $game->odd) * 0.9;
+
+            if($winner->save()) {
+                $game->winner_id = $winner->id;
+                $game->save();
+            }
         } catch (\Exception $e) {
             exit();
         }

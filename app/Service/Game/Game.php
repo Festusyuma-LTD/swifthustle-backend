@@ -4,6 +4,7 @@ namespace App\Service\Game;
 use App\Repository\GameRepository;
 use App\Service\Play\Slot as SlotService;
 use App\Service\Play\Winner as WinnerService;
+use Symfony\Component\ErrorHandler\Error\FatalError;
 
 class Game{
 
@@ -37,7 +38,11 @@ class Game{
     }
 
     public function getPlayers($id) {
-        $players = $this->gameRepository->find($id)->players()->get();
+        $players = $this->gameRepository->find($id);
+        if($players) {
+            $players = $players->players()->get();
+        }else throw new \Exception('game not found');
+
         $playersFormatted = [];
 
         foreach ($players as $player) {

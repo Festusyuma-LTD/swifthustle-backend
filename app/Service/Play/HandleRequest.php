@@ -63,7 +63,8 @@ class HandleRequest{
     private function assignRequestToGame(GameRequest $request, Game $game) {
         $request->game_id = $game->id;
         $game->available_slots--;
-        $game->play_time = ($game->available_slots == 0) ? date('Y-m-d H:i:s', strtotime('+10 minutes')) : null;
+        $game->expiration_time = ($game->available_slots == 0) ? date('Y-m-d H:i:s', strtotime('+10 minutes')) : null;
+        $game->play_time = ($game->available_slots == 0) ? date('Y-m-d H:i:s', strtotime('+15 minutes')) : null;
 
         if($request->save()) {
             $game->save();
