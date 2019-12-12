@@ -33,6 +33,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
     Route::post('join-game', 'User\GameController@joinGame');
 
     Route::group(['prefix' => 'game'], function () {
+        Route::get('{id}', 'User\GameController@index');
         Route::get('{id}/slots', 'User\PlayController@userGameSlots');
         Route::post('select-position', 'User\PlayController@selectPosition');
         Route::get('{id}/play-time', 'User\PlayController@getPlayTime');
