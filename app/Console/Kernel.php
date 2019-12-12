@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Service\Play\HandleRequest;
 use App\Service\Play\PlayGame;
+use App\Service\Play\SelectWinner;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(new HandleRequest)->everyMinute();
         $schedule->call(new PlayGame)->everyMinute();
+        $schedule->call(new SelectWinner)->everyMinute();
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Game;
 use App\ValidGame;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GameRepository{
 
@@ -28,6 +29,13 @@ class GameRepository{
         return Game::whereNull('winner_id')->whereNotNull('play_time')->get();
     }
 
+    public function getExpiredGames() {
+        return DB::table('games')->join('game_winners', 'games.winner_id', '=', 'game_winners.id')->whereNotNull('winner_id')->where([
+            ['expiration_time', '<=', now()],
+            ['game_winners.user_id', '=', null]
+        ])->get();
+    }
+
     public function getLimitedPendingGames($limit) {
         return Game::whereNull('winner_id')->whereNotNull('play_time')->take($limit)->get();
     }
@@ -42,5 +50,9 @@ class GameRepository{
 
     public function getTakenSlots($id) {
         return Game::find($id)->players->where('position', '!=', null)->pluck('position')->toArray();
+    }
+
+    public function getWinner($id) {
+        return Game::find($id)->winner;
     }
 }

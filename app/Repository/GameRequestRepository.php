@@ -15,6 +15,13 @@ class GameRequestRepository{
         return GameRequest::where('game_id', null)->take($limit)->get();
     }
 
+    public function getGamePendingRequest($id) {
+        return GameRequest::where([
+            ['game_id', $id],
+            ['position', null]
+        ])->get();
+    }
+
     public function getGameRequestPosition($gameId, $position) {
         return GameRequest::where([
             ['game_id', $gameId],

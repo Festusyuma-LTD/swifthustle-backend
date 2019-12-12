@@ -35,10 +35,8 @@ class PlayGame{
 
         try {
             $winningSlot = random_int(1, $slots);
-            $gameWinner = $this->gameRequestRepository->getGameRequestPosition($game->id, $winningSlot);
 
             $winner = new GameWinner;
-            $winner->user_id = $gameWinner;
             $winner->game_id = $game->id;
             $winner->position = $winningSlot;
             $winner->amount = ($game->amount * $game->odd) * 0.9;

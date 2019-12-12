@@ -22,8 +22,8 @@ class Winner{
             if($now >= $playTime) {
                 return [
                     'status' => 'ready',
-                    'winner' => $game->winner()->user(),
-                    'amount' => $game->winner()->amount(),
+                    'winner' => $game->winner->user,
+                    'amount' => $game->winner->amount,
                 ];
             }else {
                 return [

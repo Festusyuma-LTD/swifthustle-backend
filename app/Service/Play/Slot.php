@@ -38,6 +38,9 @@ class Slot{
         $gameId = $request->id;
 
         try {
+            $game = $this->gameRepository->find($gameId);
+            if ($game->expiration_time < now()) return false;
+
             $userAvailableSlots = $this->gameRepository->getUserAvailableSlots($gameId);
             if($userAvailableSlots->count() > 0) {
                 $userSlot = $userAvailableSlots->first();
@@ -60,6 +63,6 @@ class Slot{
         $game = $this->gameRepository->find($id);
         $slots = range(1, $game->odd);
 
-        return array_diff($slots, $takenSlots);
+        return array_values(array_diff($slots, $takenSlots));
     }
 }
