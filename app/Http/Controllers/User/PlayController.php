@@ -44,10 +44,6 @@ class PlayController extends Controller{
         }
     }
 
-    public function getPlayTime($id) {
-
-    }
-
     public function getWinner($id) {
         $winner = $this->winnerService->getWinner($id);
 
