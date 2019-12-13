@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 use App\GameRequest;
+use Illuminate\Support\Facades\Auth;
 
 class GameRequestRepository{
 
@@ -27,5 +28,9 @@ class GameRequestRepository{
             ['game_id', $gameId],
             ['position', $position]
         ])->first();
+    }
+
+    public function getUserRequestGameIds() {
+        return GameRequest::where('user_id', Auth::id())->whereNotNull('game_id')->pluck('game_id')->toArray();
     }
 }

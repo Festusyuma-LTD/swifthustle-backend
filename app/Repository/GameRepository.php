@@ -55,4 +55,16 @@ class GameRepository{
     public function getWinner($id) {
         return Game::find($id)->winner;
     }
+
+    public function getUserActiveGames($ids) {
+        return Game::whereIn('id', $ids)->where('play_time', '>=', now())->get();
+    }
+
+    public function getUserPastGames($ids) {
+        return Game::whereIn('id', $ids)->where('play_time', '<', now())->get();
+    }
+
+    public function getUserWonGames() {
+        return DB::table('games')->join('game_winners', 'games.winner_id', '=', 'game_winners.id')->where('game_winners.user_id', Auth::id())->get();
+    }
 }
