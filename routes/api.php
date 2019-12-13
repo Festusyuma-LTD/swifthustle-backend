@@ -38,6 +38,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
         Route::post('select-position', 'User\PlayController@selectPosition');
         Route::get('{id}/winner', 'User\PlayController@getWinner');
     });
+
+    Route::group(['prefix' => 'games'], function () {
+        Route::get('/active', 'User\GameController@getActiveGames');
+        Route::get('/past', 'User\GameController@getPastGames');
+        Route::get('/won', 'User\GameController@getWonGames');
+    });
 });
 
 
