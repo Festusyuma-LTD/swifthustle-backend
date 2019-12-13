@@ -9,6 +9,7 @@ use phpseclib\Math\BigInteger;
  * @property double amount
  * @property int odd
  * @property BigInteger game_id
+ * @property BigInteger user_id
  */
 
 class GameRequest extends Model{

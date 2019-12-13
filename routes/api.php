@@ -31,6 +31,19 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
         echo "user";
     });
     Route::post('join-game', 'User\GameController@joinGame');
+
+    Route::group(['prefix' => 'game'], function () {
+        Route::get('{id}', 'User\GameController@index');
+        Route::get('{id}/slots', 'User\PlayController@userGameSlots');
+        Route::post('select-position', 'User\PlayController@selectPosition');
+        Route::get('{id}/winner', 'User\PlayController@getWinner');
+    });
+
+    Route::group(['prefix' => 'games'], function () {
+        Route::get('/active', 'User\GameController@getActiveGames');
+        Route::get('/past', 'User\GameController@getPastGames');
+        Route::get('/won', 'User\GameController@getWonGames');
+    });
 });
 
 

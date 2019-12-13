@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Traits\Date;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use phpseclib\Math\BigInteger;
@@ -12,6 +13,8 @@ use phpseclib\Math\BigInteger;
  * @property  double amount
  * @property  BigInteger id
  * @property  DateTime|null play_time
+ * @property  DateTime|null expiration_time
+ * @property  BigInteger|null winner_id
  */
 
 

@@ -19,6 +19,7 @@ class CreateGamesTable extends Migration
             $table->integer('odd');
             $table->integer('available_slots');
             $table->dateTime('play_time')->nullable();
+            $table->dateTime('expiration_time')->nullable();
             $table->unsignedBigInteger('winner_id')->nullable();
             $table->timestamps();
         });

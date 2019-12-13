@@ -4,34 +4,52 @@
 namespace App\Service\Game;
 
 
+use App\GameRequest;
+use App\Repository\GameRepository;
 use App\Repository\GameRequestRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class GameRequestService
 {
 
-    protected $gameRequestRepository;
+    private $gameRequestRepository;
+    private $gameRepository;
 
-    public function __construct(GameRequestRepository $gameRequestRepository)
-    {
-        $this->gameRequestRepository = $gameRequestRepository;
+    public function __construct(){
+        $this->gameRequestRepository = new GameRequestRepository;
+        $this->gameRepository = new GameRepository;
     }
 
     public function joinActiveGame(Request $request){
 
-        $joinGame = Validator::make($request->all(), [
-           'id' => 'required'
-        ]);
+        $joinGame = Validator::make($request->all(), ['id' => 'required']);
 
         if($joinGame->fails()) {
             return $joinGame->messages()->all();
         } else {
-            $gameRequest = $this->gameRequestRepository->setGame($request);
-            if($gameRequest) {
-                return $gameRequest;
-            }
+            //todo debit user wallet
+            return $this->saveGameRequest($request);
         }
+    }
+
+    private function saveGameRequest(Request $request) {
+
+        $validGame = $this->gameRepository->getValidGameById($request->id);
+        $userId = Auth::id();
+
+        if ($validGame && $validGame->active) {
+
+            $gameRequest = new GameRequest;
+            $gameRequest->amount = $validGame->amount;
+            $gameRequest->odd = $validGame->odd;
+            $gameRequest->user_id = $userId;
+
+            if($gameRequest->save()) {
+                return $gameRequest;
+            } else return false;
+        }return false;
     }
 
 }
