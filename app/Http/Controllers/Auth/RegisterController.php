@@ -76,6 +76,7 @@ class RegisterController extends Controller
             return ResponseHelper::responseDisplay(400, 'operation fail', $user);
         } else {
             if($user) {
+                $this->userService->createUserWallet($user);
                 return ResponseHelper::responseDisplay(200, 'operation successful', $user);
             } else {
                 return ResponseHelper::responseDisplay(400, 'operation fail');

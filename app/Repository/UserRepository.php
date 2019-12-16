@@ -58,4 +58,11 @@ class UserRepository {
          return User::where('email', $request->get('email'))->first();
     }
 
+    public function isUserValid($id) {
+        $user = User::find($id);
+        if ($user) {
+            return true;
+        } else return false;
+    }
+
 }

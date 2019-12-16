@@ -47,4 +47,8 @@ class User extends Authenticatable
         return $this->hasMany('App\ValidGame');
     }
 
+    public function wallet() {
+        return $this->hasOne('App\Wallet');
+    }
+
 }
