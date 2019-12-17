@@ -26,7 +26,6 @@ class TransactionController extends Controller
     }
 
     public function fundWallet(Request $request) {
-        $userEmail = Auth::user()->email;
-        return ResponseHelper::success('Success', $this->depositService->make_transaction($userEmail, $request->reference));
+        return ResponseHelper::success('Success', $this->depositService->make_transaction($request->reference));
     }
 }
