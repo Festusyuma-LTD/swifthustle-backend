@@ -4,8 +4,10 @@ namespace App\Service;
 use App\Http\Requests\UserRequest;
 use App\Mail\ResetUserPassword;
 use App\Repository\UserRepository;
+use App\Repository\WalletRepository;
 use App\ResetPassword;
 use App\User;
+use App\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,9 +21,10 @@ class UserService {
 
     protected $userRepository;
 
-    public function __construct(UserRepository $user)
+    public function __construct(UserRepository $user, WalletRepository $walletRepository)
     {
         $this->userRepository = $user;
+        $this->walletRepository = $walletRepository;
     }
 
     public function make(Request $request) {
@@ -45,6 +48,25 @@ class UserService {
             }
         }
 
+    }
+
+    public function createUserWallet($user) {
+        $isUserValid = $this->userRepository->isUserValid($user->id);
+        $userWallet = $this->walletRepository->findByUserId($user->id);
+
+        if ($isUserValid) {
+            if ($userWallet->isEmpty()) {
+                $wallet = new Wallet;
+
+                $wallet->wallet = 0;
+                $wallet->bonus = 0;
+                $wallet->user_id = $user->id;
+    
+                if ($wallet->save()) {
+                    return $wallet;
+                } else return false;
+            } else return false;
+        } else return false;
     }
 
     public function login(Request $request) {

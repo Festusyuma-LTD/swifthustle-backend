@@ -44,9 +44,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
         Route::get('/past', 'User\GameController@getPastGames');
         Route::get('/won', 'User\GameController@getWonGames');
     });
+
+    Route::group(['prefix' => 'wallet'], function () {
+        Route::get('/', 'TransactionController@show');
+        Route::post('/fund', 'TransactionController@fundWallet');
+    });
 });
-
-
 
 Route::post('/user/register', 'Auth\RegisterController@create');
 Route::post('/user/login', 'Auth\LoginController@login');
