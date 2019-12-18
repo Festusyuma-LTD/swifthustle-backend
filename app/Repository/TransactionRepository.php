@@ -8,6 +8,6 @@ use Illuminate\Support\Facades\Auth;
 class TransactionRepository{
 
     public function findByReference($reference) {
-        return Transaction::where('reference', $reference)->get();
+        return Transaction::where('reference', $reference)->first();
     }
 }

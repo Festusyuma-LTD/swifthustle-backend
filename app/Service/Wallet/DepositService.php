@@ -14,41 +14,45 @@ class DepositService
     }
 
     public function make_transaction($reference) {
+        $user = Auth::user();
         $tranx = $this->verify_transaction($reference);
+
         if ($tranx) {
-            if ($tranx->data->status == 'success') {
-                $user = Auth::user();
-                $transc = $this->transactionRepository->findByReference($tranx->data->reference);
-
-                if ($transc->isEmpty()) {
-                    $isSuccessful = true;
-                    $isPaid = true;
-
-                    $this->save_transaction($tranx, $isSuccessful, $isPaid, $user);
-                    $wallet = $this->deposit($tranx->data->amount);
-                    return response()->json(['status' => 200, 'message' => $tranx->data->gateway_response, 'data' => $wallet]);
-                } else return response()->json(['status' => 400, 'message' => 'operation failed']);
+            $transc = $this->transactionRepository->findByReference($tranx->data->reference);
+            
+            if ($transc) {
+                if ($transc->paid == true) {
+                    return response()->json(['status' => 400, 'message' => 'paid already']);
+                }
             } else {
-                $isSuccessful = false;
-                $isPaid = false;
+                $transc = $this->new_transaction($tranx, $user);
+            }
 
-                $this->save_transaction($tranx, $isSuccessful, $isPaid, $user);
+            if ($tranx->data->status == 'success') {
+                $transc->successful = true;
+                $transc->paid = true;
+                $transc->save();
+                
+                $wallet = $this->deposit($tranx->data->amount);
+                return response()->json(['status' => 200, 'message' => $tranx->data->gateway_response, 'data' => $wallet]);
+            } else {
                 return response()->json(['status' => 400, 'message' => $tranx->data->gateway_response]);
             }
         }
         
     }
 
-    public function save_transaction($tranx, $isSuccessful, $isPaid, $user) {
+    public function new_transaction($tranx, $user) {
         $transaction = new Transaction;
 
         $transaction->reference = $tranx->data->reference;
         $transaction->amount = $tranx->data->amount;
-        $transaction->successful = $isSuccessful;
-        $transaction->paid = $isPaid;
+        $transaction->successful = false;
+        $transaction->paid = false;
         $transaction->user_id = $user->id;
 
         $transaction->save();
+        return $transaction;
     }
 
     public function deposit($amount) {
@@ -60,7 +64,9 @@ class DepositService
             $newAmt = $prevAmt + $this->convertToNaira($amount);
 
             $userWallet->wallet = $newAmt;
-            $userWallet->wallet;
+            $userWallet->save();
+
+            return $userWallet;
         }
     }
 
