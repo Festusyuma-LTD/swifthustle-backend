@@ -46,8 +46,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
     });
 
     Route::group(['prefix' => 'wallet'], function () {
-        Route::get('/', 'TransactionController@show');
-        Route::post('/fund', 'TransactionController@fundWallet');
+        Route::get('/', 'User\WalletController@index');
+        Route::post('/fund', 'User\WalletController@fundWallet');
     });
 });
 
