@@ -51,4 +51,8 @@ class User extends Authenticatable
         return $this->hasOne('App\Wallet');
     }
 
+    public function withdrawals() {
+        return $this->hasMany('App\Withdrawal');
+    }
+
 }
