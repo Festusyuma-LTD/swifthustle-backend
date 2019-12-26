@@ -15,6 +15,7 @@ class CreateWithdrawalsTable extends Migration
     {
         Schema::create('withdrawals', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->double('amount');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('bank');

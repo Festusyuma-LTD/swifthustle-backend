@@ -48,6 +48,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api','isUser']], functi
     Route::group(['prefix' => 'wallet'], function () {
         Route::get('/', 'User\WalletController@index');
         Route::post('/fund', 'User\WalletController@fundWallet');
+        Route::post('/withdraw', 'User\WalletController@withdraw');
+        Route::get('/withdrawals', 'User\WalletController@withdrawals');
     });
 });
 
